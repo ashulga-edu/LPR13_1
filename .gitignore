@@ -1,0 +1,54 @@
+﻿# Common
+.git/
+*.tmp
+*.bak
+*.log
+*.cache
+*.swp
+*.user
+*.suo
+*.ncb
+*.aps
+*.pch
+*.pdb
+*.ilk
+*.idb
+*.obj
+*.exe
+*.dll
+*.lib
+*.exp
+*.sbr
+*.ipdb
+*.iobj
+
+# IDE & tools
+.vs/
+.idea/
+*.VC.db
+*.VC.VC.opendb
+
+# C++ Builder / RAD Studio
+
+__history/
+__recovery/
+
+# Build output by platform/config
+Win32/
+Win64/
+
+# Intermediates / local / cache
+*.tds
+*.il?
+*.dsk
+*.local
+*.identcache
+*.stat
+*.cbproj.local
+*.bpl
+*.dcp
+*.bpi
+*.map
+*.pdi
+*.res
+*.dfm
