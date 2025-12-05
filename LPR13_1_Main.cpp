@@ -14,21 +14,17 @@ TFormStudents *FormStudents;
 static void LoadPhotoFromField(TFormStudents *form)
 {
     form->imgPhoto->Picture = NULL;
-
     try
     {
         if (!form->tblStudents->Active || form->tblStudents->RecordCount == 0)
             return;
-
         if (form->tblStudentsФотографія->IsNull)
             return;
-
         TMemoryStream *ms = new TMemoryStream();
         try
         {
             form->tblStudentsФотографія->SaveToStream(ms);
             ms->Position = 0;
-
             TJPEGImage *jpg = new TJPEGImage();
             try
             {
@@ -41,7 +37,6 @@ static void LoadPhotoFromField(TFormStudents *form)
                 delete jpg;
                 form->imgPhoto->Picture = NULL;
             }
-
             delete ms;
         }
         catch (...)
@@ -67,20 +62,15 @@ void __fastcall TFormStudents::FormCreate(TObject *Sender)
     {
         connStudents->Connected = false;
         tblStudents->Active = false;
-
         UnicodeString dbPath =
             ExtractFilePath(Application->ExeName) + "Students.mdb";
-
         UnicodeString connStr =
             "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + dbPath +
             ";Persist Security Info=False";
-
         connStudents->LoginPrompt = false;
         connStudents->ConnectionString = connStr;
         connStudents->Connected = true;
-
         tblStudents->Active = true;
-
         LoadPhotoFromField(this);
     }
     catch (Exception &e)
@@ -98,10 +88,8 @@ void __fastcall TFormStudents::btnLoadPhotoClick(TObject *Sender)
 {
     if (!dlgPhotoOpen->Execute())
         return;
-
     UnicodeString fileName = dlgPhotoOpen->FileName;
     UnicodeString ext = LowerCase(ExtractFileExt(fileName));
-
     try
     {
         if (ext == ".jpg" || ext == ".jpeg" || ext == ".jfif")
@@ -151,13 +139,11 @@ void __fastcall TFormStudents::btnSavePhotoClick(TObject *Sender)
 {
     if (!tblStudents->Active || tblStudents->RecordCount == 0)
         return;
-
     if (imgPhoto->Picture->Graphic == NULL)
     {
         ShowMessage("Немає фото для збереження.");
         return;
     }
-
     try
     {
         TJPEGImage *jpg = new TJPEGImage();
@@ -169,11 +155,9 @@ void __fastcall TFormStudents::btnSavePhotoClick(TObject *Sender)
             jpg->DIBNeeded();
             jpg->SaveToStream(ms);
             ms->Position = 0;
-
             tblStudents->Edit();
             tblStudentsФотографія->LoadFromStream(ms);
             tblStudents->Post();
-
             delete jpg;
             delete ms;
         }
@@ -183,7 +167,6 @@ void __fastcall TFormStudents::btnSavePhotoClick(TObject *Sender)
             delete ms;
             throw;
         }
-
         LoadPhotoFromField(this);
     }
     catch (...)
@@ -201,7 +184,6 @@ void __fastcall TFormStudents::btnDeletePhotoClick(TObject *Sender)
 {
     if (!tblStudents->Active || tblStudents->RecordCount == 0)
         return;
-
     try
     {
         tblStudents->Edit();
